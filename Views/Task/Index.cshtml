@@ -1,0 +1,47 @@
+@model List<TaskFlow.Models.TaskItem>
+@{
+    ViewData["Title"] = "Task List";
+}
+<h1 class="mt-4">Tasks</h1>
+<form method="get" class="row mb-3">
+    <div class="col-md-3">
+        <select name="filterStatus" class="form-select" onchange="this.form.submit()">
+            <option value="">All</option>
+            <option value="complete" selected="@(ViewData["CurrentFilter"] as string == "complete" ? "selected" : null)">Completed</option>
+            <option value="incomplete" selected="@(ViewData["CurrentFilter"] as string == "incomplete" ? "selected" : null)">Incomplete</option>
+
+        </select>
+    </div>
+    <div class="col-md-3">
+        <a class="btn btn-outline-secondary" asp-action="Index" asp-route-sortOrder="@ViewData["DueDateSortParam"]">Sort by Due Date</a>
+        <a class="btn btn-outline-secondary" asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParam"]">Sort by Title</a>
+    </div>
+    <div class="col-md-6 text-end">
+        <a class="btn btn-primary" href="/Task/Create">+ New Task</a>
+    </div>
+</form>
+<!-- <a class="btn btn-primary mb-3" href="/Task/Create">+ New Task</a> -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Due Date</th>
+            <th>Complete?</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Title</td>
+                <td>@task.DueDate.ToShortDateString()</td>
+                <td>@task.IsComplete</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" href="/Task/Edit/@task.Id">Edit</a>
+                    <a class="btn btn-sm btn-danger" href="/Task/Delete/@task.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
