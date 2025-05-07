@@ -10,10 +10,10 @@ namespace TaskFlow.Models
 
         [Required]
         [MaxLength(255)] // SQLite-compatible string length
-        public string Title { get; set; }
+        public required string Title { get; set; }
 
         [MaxLength(1000)]
-        public string Description { get; set; }
+        public required string Description { get; set; }
 
         [Display(Name = "Due Date")]
         public DateTime DueDate { get; set; }

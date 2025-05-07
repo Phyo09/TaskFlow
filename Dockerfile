@@ -15,4 +15,6 @@ ENV ASPNETCORE_URLS=http://+:$PORT
 
 EXPOSE 10000
 
+COPY TaskFlow.db ./
+
 ENTRYPOINT ["dotnet", "TaskFlow.dll"]
